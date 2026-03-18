@@ -3,516 +3,503 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Java Keywords – LinkedIn Post</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Java Keywords – LinkedIn Reference Sheet</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  body {
-    background: #0a0e1a;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    font-family: 'DM Sans', sans-serif;
-  }
+:root {
+  --bg: #060910;
+  --surface: #0c1120;
+  --border: rgba(255,255,255,0.07);
+  --border-bright: rgba(255,255,255,0.12);
+  --text: #f1f5f9;
+  --muted: #475569;
+  --muted2: #64748b;
+}
 
-  .card {
-    width: 1200px;
-    background: linear-gradient(135deg, #0d1224 0%, #111827 50%, #0d1224 100%);
-    border: 1px solid rgba(99,179,237,0.15);
-    border-radius: 28px;
-    padding: 56px 60px 48px;
-    position: relative;
-    overflow: hidden;
-    box-shadow:
-      0 0 0 1px rgba(99,179,237,0.06),
-      0 40px 120px rgba(0,0,0,0.8),
-      inset 0 1px 0 rgba(255,255,255,0.06);
-  }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
 
-  /* Ambient glow blobs */
-  .card::before {
-    content: '';
-    position: absolute;
-    top: -120px; left: -80px;
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(99,102,241,0.18) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-  }
-  .card::after {
-    content: '';
-    position: absolute;
-    bottom: -100px; right: -60px;
-    width: 420px; height: 420px;
-    background: radial-gradient(circle, rgba(20,184,166,0.14) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-  }
+/* ── STICKY TOP BAR ── */
+.topbar {
+  position: sticky;
+  top: 0; z-index: 100;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(6,9,16,0.88);
+  border-bottom: 1px solid var(--border);
+  padding: 0 28px;
+  height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.topbar-left { display: flex; align-items: center; gap: 12px; }
+.logo {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  display: flex; align-items: center; gap: 9px;
+}
+.logo-icon {
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg,#4f46e5,#0ea5e9);
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px;
+}
+.topbar-badge {
+  background: rgba(59,130,246,0.1);
+  border: 1px solid rgba(59,130,246,0.25);
+  color: #93c5fd;
+  font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 4px 11px; border-radius: 100px;
+}
 
-  /* Grid texture */
-  .grid-bg {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(99,179,237,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(99,179,237,0.04) 1px, transparent 1px);
-    background-size: 40px 40px;
-    border-radius: 28px;
-    pointer-events: none;
-  }
+/* Download button */
+.dl-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg,#4f46e5,#0ea5e9);
+  color: #fff;
+  font-family: 'Syne', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.02em;
+  border: none; border-radius: 10px;
+  padding: 10px 22px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(79,70,229,0.4);
+  transition: opacity .15s, transform .15s, box-shadow .15s;
+  white-space: nowrap;
+}
+.dl-btn:hover { opacity:.9; transform:translateY(-1px); box-shadow: 0 8px 28px rgba(79,70,229,0.5); }
+.dl-btn:active { transform:translateY(0); }
+.dl-btn svg { width:15px; height:15px; flex-shrink:0; }
+.dl-spin {
+  display: none; width:14px; height:14px;
+  border: 2px solid rgba(255,255,255,.3);
+  border-top-color:#fff; border-radius:50%;
+  animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
 
-  /* Header */
-  .header {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-bottom: 44px;
-  }
+/* ── HERO ── */
+.hero {
+  position: relative; overflow: hidden;
+  padding: 80px 32px 64px;
+  text-align: center;
+}
+.hero-glow {
+  position: absolute;
+  top: -180px; left: 50%; transform: translateX(-50%);
+  width: 860px; height: 520px;
+  background: radial-gradient(ellipse, rgba(79,70,229,.2) 0%, rgba(14,165,233,.1) 38%, transparent 68%);
+  pointer-events: none;
+}
+.hero-grid-lines {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(99,179,237,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99,179,237,.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(16,185,129,.1);
+  border: 1px solid rgba(16,185,129,.25);
+  border-radius: 100px; padding: 6px 16px;
+  margin-bottom: 26px;
+}
+.hero-dot {
+  width:6px; height:6px; background:#10b981; border-radius:50%;
+  box-shadow: 0 0 8px #10b981;
+  animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+.hero-badge span {
+  font-size:11px; font-weight:600; color:#6ee7b7;
+  letter-spacing:.1em; text-transform:uppercase;
+}
+h1 {
+  font-family:'Syne',sans-serif;
+  font-size: clamp(30px,6vw,62px);
+  font-weight:800; line-height:1.06; letter-spacing:-1.5px; color:#fff;
+  position:relative;
+}
+.grad {
+  background: linear-gradient(90deg,#60a5fa,#818cf8,#34d399);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.hero-sub {
+  margin: 20px auto 0; max-width: 520px;
+  font-size:15.5px; font-weight:300; color:#64748b; line-height:1.7;
+}
+.hero-chips {
+  margin-top: 36px;
+  display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+}
+.chip {
+  display:flex; align-items:center; gap:8px;
+  background: var(--surface);
+  border: 1px solid var(--border-bright);
+  border-radius: 12px; padding: 10px 18px;
+  font-size:13px; color:#64748b;
+}
+.chip strong { color:var(--text); font-weight:600; }
+.chip .ci { font-size:15px; }
+.chip.hl {
+  background: linear-gradient(135deg,rgba(79,70,229,.15),rgba(14,165,233,.15));
+  border-color: rgba(79,70,229,.3);
+}
+.chip.hl strong { color:#a5b4fc; }
 
-  .header-left {}
+/* ── DIVIDER ── */
+.sep {
+  height:1px; margin:0 28px;
+  background: linear-gradient(90deg,transparent,rgba(99,179,237,.15),rgba(129,140,248,.15),transparent);
+}
 
-  .eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(99,102,241,0.12);
-    border: 1px solid rgba(99,102,241,0.3);
-    border-radius: 100px;
-    padding: 5px 14px;
-    margin-bottom: 14px;
-  }
-  .eyebrow-dot {
-    width: 7px; height: 7px;
-    background: #818cf8;
-    border-radius: 50%;
-    box-shadow: 0 0 8px #818cf8;
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%,100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-  .eyebrow span {
-    font-size: 12px;
-    font-weight: 500;
-    color: #a5b4fc;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
+/* ── GRID ── */
+.grid {
+  padding: 36px 28px 44px;
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  gap: 13px;
+}
 
-  h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: 52px;
-    font-weight: 800;
-    line-height: 1.05;
-    color: #fff;
-    letter-spacing: -1px;
-  }
-  h1 .accent {
-    background: linear-gradient(90deg, #63b3ed, #818cf8, #34d399);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+/* Card */
+.cat {
+  background: var(--surface);
+  border-radius: 18px;
+  padding: 20px 16px 18px;
+  border: 1px solid var(--border);
+  position: relative; overflow: hidden;
+  transition: transform .2s, border-color .25s, box-shadow .25s;
+  cursor: default;
+}
+.cat:hover { transform:translateY(-4px); box-shadow:0 20px 48px rgba(0,0,0,.55); }
+.stripe {
+  position:absolute; top:0; left:0; right:0;
+  height:3px; border-radius:18px 18px 0 0;
+}
+.glow {
+  position:absolute; top:-40px; left:-20px;
+  width:120px; height:120px; border-radius:50%;
+  opacity:.08; pointer-events:none;
+}
+.cat-hd { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+.ico {
+  width:34px; height:34px; border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:15px; flex-shrink:0;
+}
+.cat-label {
+  font-size:9px; font-weight:600;
+  text-transform:uppercase; letter-spacing:.12em;
+  color:var(--muted); line-height:1.4;
+}
+.kws { display:flex; flex-wrap:wrap; gap:5px; }
+.kw {
+  font-family:'JetBrains Mono',monospace;
+  font-size:10.5px; font-weight:500;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:6px; padding:3px 8px;
+  transition:background .15s;
+}
+.cat:hover .kw { background:rgba(255,255,255,.07); }
 
-  .subtitle {
-    margin-top: 12px;
-    font-size: 16px;
-    color: #64748b;
-    font-weight: 300;
-    max-width: 460px;
-    line-height: 1.6;
-  }
+/* Colour themes */
+.blue   .stripe{background:linear-gradient(90deg,#3b82f6,#0ea5e9)} .blue   .glow{background:#3b82f6} .blue   .ico{background:rgba(59,130,246,.12)}  .blue   .kw{color:#93c5fd} .blue:hover{border-color:rgba(59,130,246,.25)}
+.purple .stripe{background:linear-gradient(90deg,#8b5cf6,#6366f1)} .purple .glow{background:#8b5cf6} .purple .ico{background:rgba(139,92,246,.12)}  .purple .kw{color:#c4b5fd} .purple:hover{border-color:rgba(139,92,246,.25)}
+.green  .stripe{background:linear-gradient(90deg,#10b981,#059669)} .green  .glow{background:#10b981} .green  .ico{background:rgba(16,185,129,.12)}  .green  .kw{color:#6ee7b7} .green:hover{border-color:rgba(16,185,129,.25)}
+.amber  .stripe{background:linear-gradient(90deg,#f59e0b,#d97706)} .amber  .glow{background:#f59e0b} .amber  .ico{background:rgba(245,158,11,.12)}  .amber  .kw{color:#fde68a} .amber:hover{border-color:rgba(245,158,11,.25)}
+.orange .stripe{background:linear-gradient(90deg,#f97316,#dc2626)} .orange .glow{background:#f97316} .orange .ico{background:rgba(249,115,22,.12)}  .orange .kw{color:#fdba74} .orange:hover{border-color:rgba(249,115,22,.25)}
+.pink   .stripe{background:linear-gradient(90deg,#ec4899,#8b5cf6)} .pink   .glow{background:#ec4899} .pink   .ico{background:rgba(236,72,153,.12)}  .pink   .kw{color:#f9a8d4} .pink:hover{border-color:rgba(236,72,153,.25)}
+.teal   .stripe{background:linear-gradient(90deg,#14b8a6,#0891b2)} .teal   .glow{background:#14b8a6} .teal   .ico{background:rgba(20,184,166,.12)}  .teal   .kw{color:#5eead4} .teal:hover{border-color:rgba(20,184,166,.25)}
+.yellow .stripe{background:linear-gradient(90deg,#eab308,#ca8a04)} .yellow .glow{background:#eab308} .yellow .ico{background:rgba(234,179,8,.12)}   .yellow .kw{color:#fef08a} .yellow:hover{border-color:rgba(234,179,8,.25)}
+.slate  .stripe{background:linear-gradient(90deg,#94a3b8,#64748b)} .slate  .glow{background:#94a3b8} .slate  .ico{background:rgba(148,163,184,.12)} .slate  .kw{color:#cbd5e1} .slate:hover{border-color:rgba(148,163,184,.25)}
+.red    .stripe{background:linear-gradient(90deg,#ef4444,#991b1b)} .red    .glow{background:#ef4444} .red    .ico{background:rgba(239,68,68,.12)}   .red    .kw{color:#fca5a5} .red:hover{border-color:rgba(239,68,68,.25)}
 
-  .badge-group {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 8px;
-  }
-  .badge {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 12px;
-    padding: 8px 16px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    color: #94a3b8;
-  }
-  .badge strong { color: #e2e8f0; }
-  .count-pill {
-    background: linear-gradient(135deg, #6366f1, #14b8a6);
-    border-radius: 100px;
-    padding: 10px 20px;
-    font-family: 'Syne', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    color: #fff;
-  }
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  margin: 0 28px;
+  padding: 28px 0 44px;
+  display: flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:20px;
+}
+.ft-left { display:flex; align-items:center; gap:14px; }
+.ft-bar {
+  width:4px; height:44px; border-radius:4px;
+  background:linear-gradient(180deg,#4f46e5,#0ea5e9);
+  flex-shrink:0;
+}
+.ft-copy { font-family:'Syne',sans-serif; font-size:17px; font-weight:700; color:#fff; }
+.ft-copy small {
+  display:block; font-family:'Inter',sans-serif;
+  font-size:11.5px; font-weight:400; color:var(--muted); margin-top:3px;
+}
+.ft-right { display:flex; flex-direction:column; align-items:flex-end; gap:10px; }
+.hts { display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end; }
+.ht {
+  font-size:11px; font-weight:500; color:var(--muted);
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:100px; padding:4px 12px;
+  transition:color .2s, border-color .2s;
+}
+.ht:hover { color:#93c5fd; border-color:rgba(59,130,246,.3); }
+.ft-ver { font-family:'JetBrains Mono',monospace; font-size:10px; color:#1e293b; }
 
-  /* Divider */
-  .divider {
-    position: relative;
-    z-index: 2;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(99,179,237,0.2), rgba(129,140,248,0.2), transparent);
-    margin-bottom: 36px;
-  }
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+  .grid{ grid-template-columns:repeat(4,1fr); }
+}
+@media(max-width:860px){
+  .grid{ grid-template-columns:repeat(3,1fr); padding:24px 20px 32px; }
+  .hero{ padding:56px 20px 44px; }
+  .sep{ margin:0 20px; }
+  footer{ margin:0 20px; }
+}
+@media(max-width:620px){
+  .topbar{ padding:0 16px; }
+  .topbar-badge{ display:none; }
+  .dl-btn .dl-lbl{ display:none; }
+  .dl-btn{ padding:10px 14px; border-radius:9px; }
 
-  /* Categories grid */
-  .grid {
-    position: relative;
-    z-index: 2;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 14px;
-    margin-bottom: 36px;
-  }
+  .hero{ padding:40px 16px 32px; }
+  h1{ letter-spacing:-.5px; }
+  h1 br{ display:none; }
+  .hero-sub{ font-size:13.5px; }
+  .chip{ font-size:12px; padding:8px 13px; }
 
-  .cat {
-    background: rgba(255,255,255,0.03);
-    border-radius: 16px;
-    padding: 18px 16px;
-    border: 1px solid rgba(255,255,255,0.06);
-    transition: transform 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-  .cat::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    border-radius: 16px 16px 0 0;
-  }
+  .grid{ grid-template-columns:repeat(2,1fr); gap:9px; padding:20px 16px 26px; }
+  .cat{ padding:15px 12px; border-radius:13px; }
+  .ico{ width:28px; height:28px; font-size:13px; border-radius:8px; }
+  .cat-label{ font-size:8.5px; }
+  .kw{ font-size:9.5px; padding:2px 6px; }
 
-  /* Color themes per category */
-  .cat-data { border-color: rgba(99,179,237,0.15); }
-  .cat-data::before { background: linear-gradient(90deg, #63b3ed, #3b82f6); }
-  .cat-data .cat-icon { color: #63b3ed; }
-  .cat-data .keyword { color: #93c5fd; }
-
-  .cat-control { border-color: rgba(167,139,250,0.15); }
-  .cat-control::before { background: linear-gradient(90deg, #a78bfa, #7c3aed); }
-  .cat-control .cat-icon { color: #a78bfa; }
-  .cat-control .keyword { color: #c4b5fd; }
-
-  .cat-modifier { border-color: rgba(52,211,153,0.15); }
-  .cat-modifier::before { background: linear-gradient(90deg, #34d399, #059669); }
-  .cat-modifier .cat-icon { color: #34d399; }
-  .cat-modifier .keyword { color: #6ee7b7; }
-
-  .cat-exception { border-color: rgba(251,191,36,0.15); }
-  .cat-exception::before { background: linear-gradient(90deg, #fbbf24, #d97706); }
-  .cat-exception .cat-icon { color: #fbbf24; }
-  .cat-exception .keyword { color: #fde68a; }
-
-  .cat-class { border-color: rgba(249,115,22,0.15); }
-  .cat-class::before { background: linear-gradient(90deg, #f97316, #dc2626); }
-  .cat-class .cat-icon { color: #f97316; }
-  .cat-class .keyword { color: #fdba74; }
-
-  .cat-object { border-color: rgba(236,72,153,0.15); }
-  .cat-object::before { background: linear-gradient(90deg, #ec4899, #9333ea); }
-  .cat-object .cat-icon { color: #ec4899; }
-  .cat-object .keyword { color: #f9a8d4; }
-
-  .cat-symbol { border-color: rgba(20,184,166,0.15); }
-  .cat-symbol::before { background: linear-gradient(90deg, #14b8a6, #0891b2); }
-  .cat-symbol .cat-icon { color: #14b8a6; }
-  .cat-symbol .keyword { color: #5eead4; }
-
-  .cat-literals { border-color: rgba(250,204,21,0.15); }
-  .cat-literals::before { background: linear-gradient(90deg, #facc15, #ca8a04); }
-  .cat-literals .cat-icon { color: #facc15; }
-  .cat-literals .keyword { color: #fef08a; }
-
-  .cat-unused { border-color: rgba(148,163,184,0.15); }
-  .cat-unused::before { background: linear-gradient(90deg, #94a3b8, #64748b); }
-  .cat-unused .cat-icon { color: #94a3b8; }
-  .cat-unused .keyword { color: #cbd5e1; }
-
-  .cat-obsolete { border-color: rgba(239,68,68,0.15); }
-  .cat-obsolete::before { background: linear-gradient(90deg, #ef4444, #991b1b); }
-  .cat-obsolete .cat-icon { color: #ef4444; }
-  .cat-obsolete .keyword { color: #fca5a5; }
-
-  .cat-icon {
-    font-size: 20px;
-    margin-bottom: 8px;
-    display: block;
-  }
-
-  .cat-title {
-    font-size: 10px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #64748b;
-    margin-bottom: 10px;
-  }
-
-  .keywords-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-  }
-
-  .keyword {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11.5px;
-    font-weight: 600;
-    background: rgba(255,255,255,0.05);
-    border-radius: 5px;
-    padding: 3px 7px;
-  }
-
-  /* Second row – wider cards */
-  .grid-row2 {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  }
-
-  /* Footer */
-  .footer {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .caption {
-    font-family: 'Syne', sans-serif;
-    font-size: 17px;
-    font-weight: 700;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .caption-line {
-    width: 30px;
-    height: 2px;
-    background: linear-gradient(90deg, #6366f1, #14b8a6);
-    border-radius: 2px;
-  }
-
-  .tags {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-  }
-  .tag {
-    font-size: 11px;
-    font-weight: 500;
-    color: #475569;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 100px;
-    padding: 4px 12px;
-  }
-
-  .branding {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: #334155;
-    margin-top: 12px;
-    text-align: right;
-  }
+  .sep{ margin:0 16px; }
+  footer{ flex-direction:column; align-items:flex-start; margin:0 16px; padding:22px 0 32px; }
+  .ft-right{ align-items:flex-start; }
+  .hts{ justify-content:flex-start; }
+  .ft-copy{ font-size:15px; }
+}
+@media(max-width:380px){
+  .grid{ gap:7px; }
+  .kw{ font-size:9px; }
+}
 </style>
 </head>
 <body>
-<div class="card">
-  <div class="grid-bg"></div>
 
-  <!-- Header -->
-  <div class="header">
-    <div class="header-left">
-      <div class="eyebrow">
-        <div class="eyebrow-dot"></div>
-        <span>Java Reference Sheet</span>
-      </div>
-      <h1>Every Java <span class="accent">Keyword</span><br>You Need to Know</h1>
-      <p class="subtitle">A complete categorized breakdown of all reserved keywords in Java — from data types to obsolete relics.</p>
+<!-- STICKY NAVBAR -->
+<header class="topbar">
+  <div class="topbar-left">
+    <div class="logo">
+      <div class="logo-icon">☕</div>
+      Java Keywords
     </div>
-    <div class="badge-group">
-      <div class="count-pill">⚡ 60+ Keywords</div>
-      <div class="badge"><strong>Language:</strong> Java SE 21+</div>
-      <div class="badge"><strong>Level:</strong> All</div>
+    <div class="topbar-badge">Java SE 21+</div>
+  </div>
+  <button class="dl-btn" id="dlBtn" onclick="downloadSheet()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7 10 12 15 17 10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+    <div class="dl-spin" id="spin"></div>
+    <span class="dl-lbl">Download PNG</span>
+  </button>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-badge"><div class="hero-dot"></div><span>Complete Java Reference Sheet</span></div>
+  <h1>Every Java <span class="grad">Keyword</span><br>You Need to Know</h1>
+  <p class="hero-sub">A categorized breakdown of all 60+ reserved keywords in Java — from primitive types to modern sealed classes.</p>
+  <div class="hero-chips">
+    <div class="chip hl"><span class="ci">⚡</span><strong>60+</strong>&nbsp;Keywords</div>
+    <div class="chip"><span class="ci">📦</span><strong>10</strong>&nbsp;Categories</div>
+    <div class="chip"><span class="ci">🔖</span>Language:&nbsp;<strong>Java SE 21+</strong></div>
+    <div class="chip"><span class="ci">🎯</span>Level:&nbsp;<strong>All</strong></div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- KEYWORD GRID -->
+<main class="grid">
+
+  <div class="cat blue">
+    <div class="glow" style="background:#3b82f6"></div>
+    <div class="stripe"></div>
+    <div class="cat-hd"><div class="ico">🔵</div><div class="cat-label">Data Types</div></div>
+    <div class="kws">
+      <span class="kw">byte</span><span class="kw">short</span><span class="kw">int</span><span class="kw">long</span>
+      <span class="kw">float</span><span class="kw">double</span><span class="kw">char</span><span class="kw">boolean</span>
+      <span class="kw">void</span><span class="kw">var</span><span class="kw">enum</span>
     </div>
   </div>
 
-  <div class="divider"></div>
-
-  <!-- Row 1 -->
-  <div class="grid">
-    <div class="cat cat-data">
-      <span class="cat-icon">🔵</span>
-      <div class="cat-title">Data Types</div>
-      <div class="keywords-list">
-        <span class="keyword">byte</span>
-        <span class="keyword">short</span>
-        <span class="keyword">int</span>
-        <span class="keyword">long</span>
-        <span class="keyword">float</span>
-        <span class="keyword">double</span>
-        <span class="keyword">char</span>
-        <span class="keyword">boolean</span>
-        <span class="keyword">void</span>
-        <span class="keyword">var</span>
-        <span class="keyword">enum</span>
-      </div>
-    </div>
-
-    <div class="cat cat-control">
-      <span class="cat-icon">🔀</span>
-      <div class="cat-title">Control Flow</div>
-      <div class="keywords-list">
-        <span class="keyword">if</span>
-        <span class="keyword">else</span>
-        <span class="keyword">switch</span>
-        <span class="keyword">case</span>
-        <span class="keyword">default</span>
-        <span class="keyword">yield</span>
-        <span class="keyword">for</span>
-        <span class="keyword">while</span>
-        <span class="keyword">do</span>
-        <span class="keyword">break</span>
-        <span class="keyword">continue</span>
-        <span class="keyword">return</span>
-        <span class="keyword">when</span>
-      </div>
-    </div>
-
-    <div class="cat cat-modifier">
-      <span class="cat-icon">🛡️</span>
-      <div class="cat-title">Modifiers</div>
-      <div class="keywords-list">
-        <span class="keyword">public</span>
-        <span class="keyword">protected</span>
-        <span class="keyword">private</span>
-        <span class="keyword">static</span>
-        <span class="keyword">final</span>
-        <span class="keyword">abstract</span>
-        <span class="keyword">synchronized</span>
-        <span class="keyword">transient</span>
-        <span class="keyword">volatile</span>
-        <span class="keyword">native</span>
-      </div>
-    </div>
-
-    <div class="cat cat-exception">
-      <span class="cat-icon">⚠️</span>
-      <div class="cat-title">Exception Handling</div>
-      <div class="keywords-list">
-        <span class="keyword">try</span>
-        <span class="keyword">catch</span>
-        <span class="keyword">finally</span>
-        <span class="keyword">throw</span>
-        <span class="keyword">throws</span>
-        <span class="keyword">assert</span>
-      </div>
-    </div>
-
-    <div class="cat cat-class">
-      <span class="cat-icon">📦</span>
-      <div class="cat-title">Class Related</div>
-      <div class="keywords-list">
-        <span class="keyword">class</span>
-        <span class="keyword">interface</span>
-        <span class="keyword">extends</span>
-        <span class="keyword">implements</span>
-        <span class="keyword">package</span>
-        <span class="keyword">import</span>
-        <span class="keyword">exports</span>
-        <span class="keyword">module</span>
-        <span class="keyword">open</span>
-        <span class="keyword">opens</span>
-        <span class="keyword">provides</span>
-        <span class="keyword">requires</span>
-        <span class="keyword">uses</span>
-        <span class="keyword">with</span>
-        <span class="keyword">to</span>
-        <span class="keyword">transitive</span>
-        <span class="keyword">sealed</span>
-        <span class="keyword">non-sealed</span>
-        <span class="keyword">permits</span>
-        <span class="keyword">record</span>
-      </div>
+  <div class="cat purple">
+    <div class="glow" style="background:#8b5cf6"></div>
+    <div class="stripe"></div>
+    <div class="cat-hd"><div class="ico">🔀</div><div class="cat-label">Control Flow</div></div>
+    <div class="kws">
+      <span class="kw">if</span><span class="kw">else</span><span class="kw">switch</span><span class="kw">case</span>
+      <span class="kw">default</span><span class="kw">yield</span><span class="kw">for</span><span class="kw">while</span>
+      <span class="kw">do</span><span class="kw">break</span><span class="kw">continue</span><span class="kw">return</span><span class="kw">when</span>
     </div>
   </div>
 
-  <!-- Row 2 -->
-  <div class="grid grid-row2">
-    <div class="cat cat-object">
-      <span class="cat-icon">🧬</span>
-      <div class="cat-title">Object Related</div>
-      <div class="keywords-list">
-        <span class="keyword">new</span>
-        <span class="keyword">instanceof</span>
-        <span class="keyword">super</span>
-        <span class="keyword">this</span>
-      </div>
-    </div>
-
-    <div class="cat cat-symbol">
-      <span class="cat-icon">🔣</span>
-      <div class="cat-title">Special Symbol</div>
-      <div class="keywords-list">
-        <span class="keyword">_ (underscore)</span>
-      </div>
-    </div>
-
-    <div class="cat cat-literals">
-      <span class="cat-icon">💡</span>
-      <div class="cat-title">Literals</div>
-      <div class="keywords-list">
-        <span class="keyword">true</span>
-        <span class="keyword">false</span>
-        <span class="keyword">null</span>
-      </div>
-    </div>
-
-    <div class="cat cat-unused">
-      <span class="cat-icon">🚫</span>
-      <div class="cat-title">Unused Keywords</div>
-      <div class="keywords-list">
-        <span class="keyword">goto</span>
-        <span class="keyword">const</span>
-      </div>
-    </div>
-
-    <div class="cat cat-obsolete">
-      <span class="cat-icon">🪦</span>
-      <div class="cat-title">Obsolete</div>
-      <div class="keywords-list">
-        <span class="keyword">strictfp</span>
-      </div>
+  <div class="cat green">
+    <div class="glow" style="background:#10b981"></div>
+    <div class="stripe"></div>
+    <div class="cat-hd"><div class="ico">🛡️</div><div class="cat-label">Modifiers</div></div>
+    <div class="kws">
+      <span class="kw">public</span><span class="kw">protected</span><span class="kw">private</span>
+      <span class="kw">static</span><span class="kw">final</span><span class="kw">abstract</span>
+      <span class="kw">synchronized</span><span class="kw">transient</span><span class="kw">volatile</span><span class="kw">native</span>
     </div>
   </div>
 
-  <!-- Footer -->
-  <div class="footer">
-    <div class="caption">
-      <div class="caption-line"></div>
+  <div class="cat amber">
+    <div class="glow" style="background:#f59e0b"></div>
+    <div class="stripe"></div>
+    <div class="cat-hd"><div class="ico">⚠️</div><div class="cat-label">Exception Handling</div></div>
+    <div class="kws">
+      <span class="kw">try</span><span class="kw">catch</span><span class="kw">finally</span>
+      <span class="kw">throw</span><span class="kw">throws</span><span class="kw">assert</span>
+    </div>
+  </div>
+
+  <div class="cat orange">
+    <div class="glow" style="background:#f97316"></div>
+    <div class="stripe"></div>
+    <div class="cat-hd"><div class="ico">📦</div><div class="cat-label">Class Related</div></div>
+    <div class="kws">
+      <span class="kw">class</span><span class="kw">interface</span><span class="kw">extends</span><span class="kw">implements</span>
+      <span class="kw">package</span><span class="kw">import</span><span class="kw">exports</span><span class="kw">module</span>
+      <span class="kw">open</span><span class="kw">opens</span><span class="kw">provides</span><span class="kw">requires</span>
+      <span class="kw">uses</span><span class="kw">with</span><span class="kw">to</span><span class="kw">transitive</span>
+      <span class="kw">sealed</span><span class="kw">non-sealed</span><span class="kw">permits</span><span class="kw">record</span>
+    </div>
+  </div>
+
+  <div class="cat pink">
+    <div class="glow" style="background:#ec4899"></div>
+    <div class="stripe"></div>
+    <div class="cat-hd"><div class="ico">🧬</div><div class="cat-label">Object Related</div></div>
+    <div class="kws">
+      <span class="kw">new</span><span class="kw">instanceof</span><span class="kw">super</span><span class="kw">this</span>
+    </div>
+  </div>
+
+  <div class="cat teal">
+    <div class="glow" style="background:#14b8a6"></div>
+    <div class="stripe"></div>
+    <div class="cat-hd"><div class="ico">🔣</div><div class="cat-label">Special Symbol</div></div>
+    <div class="kws">
+      <span class="kw">_ (underscore)</span>
+    </div>
+  </div>
+
+  <div class="cat yellow">
+    <div class="glow" style="background:#eab308"></div>
+    <div class="stripe"></div>
+    <div class="cat-hd"><div class="ico">💡</div><div class="cat-label">Literals</div></div>
+    <div class="kws">
+      <span class="kw">true</span><span class="kw">false</span><span class="kw">null</span>
+    </div>
+  </div>
+
+  <div class="cat slate">
+    <div class="glow" style="background:#94a3b8"></div>
+    <div class="stripe"></div>
+    <div class="cat-hd"><div class="ico">🚫</div><div class="cat-label">Unused Keywords</div></div>
+    <div class="kws">
+      <span class="kw">goto</span><span class="kw">const</span>
+    </div>
+  </div>
+
+  <div class="cat red">
+    <div class="glow" style="background:#ef4444"></div>
+    <div class="stripe"></div>
+    <div class="cat-hd"><div class="ico">🪦</div><div class="cat-label">Obsolete</div></div>
+    <div class="kws">
+      <span class="kw">strictfp</span>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-left">
+    <div class="ft-bar"></div>
+    <div class="ft-copy">
       Save this. Share it. Master Java. ☕
-    </div>
-    <div>
-      <div class="tags">
-        <span class="tag">#Java</span>
-        <span class="tag">#Programming</span>
-        <span class="tag">#Developer</span>
-        <span class="tag">#100DaysOfCode</span>
-        <span class="tag">#SoftwareEngineering</span>
-      </div>
-      <div class="branding">Java SE 21 · All Reserved Keywords</div>
+      <small>Java SE 21 · All Reserved Keywords · for LinkedIn</small>
     </div>
   </div>
-</div>
+  <div class="ft-right">
+    <div class="hts">
+      <span class="ht">#Java</span>
+      <span class="ht">#Programming</span>
+      <span class="ht">#Developer</span>
+      <span class="ht">#100DaysOfCode</span>
+      <span class="ht">#SoftwareEngineering</span>
+      <span class="ht">#BackendDev</span>
+    </div>
+    <div class="ft-ver">Java_Keywords_Reference_v2.0</div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+async function downloadSheet() {
+  const btn  = document.getElementById('dlBtn');
+  const spin = document.getElementById('spin');
+  const lbl  = btn.querySelector('.dl-lbl');
+  const ico  = btn.querySelector('svg');
+
+  ico.style.display  = 'none';
+  spin.style.display = 'block';
+  if (lbl) lbl.textContent = 'Generating…';
+
+  try {
+    const canvas = await html2canvas(document.body, {
+      scale: 2,
+      backgroundColor: '#060910',
+      useCORS: true,
+      logging: false,
+      scrollY: 0,
+      windowWidth:  document.body.scrollWidth,
+      windowHeight: document.body.scrollHeight,
+    });
+    const a = document.createElement('a');
+    a.download = 'Java_Keywords_LinkedIn.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  } catch(e) {
+    alert('Download failed — please screenshot instead.');
+  }
+
+  ico.style.display  = '';
+  spin.style.display = 'none';
+  if (lbl) lbl.textContent = 'Download PNG';
+}
+</script>
 </body>
 </html>
