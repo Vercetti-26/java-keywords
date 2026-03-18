@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Java Keywords – LinkedIn Post</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0a0e1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .card {
+    width: 1200px;
+    background: linear-gradient(135deg, #0d1224 0%, #111827 50%, #0d1224 100%);
+    border: 1px solid rgba(99,179,237,0.15);
+    border-radius: 28px;
+    padding: 56px 60px 48px;
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 1px rgba(99,179,237,0.06),
+      0 40px 120px rgba(0,0,0,0.8),
+      inset 0 1px 0 rgba(255,255,255,0.06);
+  }
+
+  /* Ambient glow blobs */
+  .card::before {
+    content: '';
+    position: absolute;
+    top: -120px; left: -80px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(99,102,241,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .card::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; right: -60px;
+    width: 420px; height: 420px;
+    background: radial-gradient(circle, rgba(20,184,166,0.14) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  /* Grid texture */
+  .grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(99,179,237,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(99,179,237,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    border-radius: 28px;
+    pointer-events: none;
+  }
+
+  /* Header */
+  .header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 44px;
+  }
+
+  .header-left {}
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(99,102,241,0.12);
+    border: 1px solid rgba(99,102,241,0.3);
+    border-radius: 100px;
+    padding: 5px 14px;
+    margin-bottom: 14px;
+  }
+  .eyebrow-dot {
+    width: 7px; height: 7px;
+    background: #818cf8;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #818cf8;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .eyebrow span {
+    font-size: 12px;
+    font-weight: 500;
+    color: #a5b4fc;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1.05;
+    color: #fff;
+    letter-spacing: -1px;
+  }
+  h1 .accent {
+    background: linear-gradient(90deg, #63b3ed, #818cf8, #34d399);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle {
+    margin-top: 12px;
+    font-size: 16px;
+    color: #64748b;
+    font-weight: 300;
+    max-width: 460px;
+    line-height: 1.6;
+  }
+
+  .badge-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+  .badge {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 8px 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: #94a3b8;
+  }
+  .badge strong { color: #e2e8f0; }
+  .count-pill {
+    background: linear-gradient(135deg, #6366f1, #14b8a6);
+    border-radius: 100px;
+    padding: 10px 20px;
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  /* Divider */
+  .divider {
+    position: relative;
+    z-index: 2;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(99,179,237,0.2), rgba(129,140,248,0.2), transparent);
+    margin-bottom: 36px;
+  }
+
+  /* Categories grid */
+  .grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+
+  .cat {
+    background: rgba(255,255,255,0.03);
+    border-radius: 16px;
+    padding: 18px 16px;
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .cat::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    border-radius: 16px 16px 0 0;
+  }
+
+  /* Color themes per category */
+  .cat-data { border-color: rgba(99,179,237,0.15); }
+  .cat-data::before { background: linear-gradient(90deg, #63b3ed, #3b82f6); }
+  .cat-data .cat-icon { color: #63b3ed; }
+  .cat-data .keyword { color: #93c5fd; }
+
+  .cat-control { border-color: rgba(167,139,250,0.15); }
+  .cat-control::before { background: linear-gradient(90deg, #a78bfa, #7c3aed); }
+  .cat-control .cat-icon { color: #a78bfa; }
+  .cat-control .keyword { color: #c4b5fd; }
+
+  .cat-modifier { border-color: rgba(52,211,153,0.15); }
+  .cat-modifier::before { background: linear-gradient(90deg, #34d399, #059669); }
+  .cat-modifier .cat-icon { color: #34d399; }
+  .cat-modifier .keyword { color: #6ee7b7; }
+
+  .cat-exception { border-color: rgba(251,191,36,0.15); }
+  .cat-exception::before { background: linear-gradient(90deg, #fbbf24, #d97706); }
+  .cat-exception .cat-icon { color: #fbbf24; }
+  .cat-exception .keyword { color: #fde68a; }
+
+  .cat-class { border-color: rgba(249,115,22,0.15); }
+  .cat-class::before { background: linear-gradient(90deg, #f97316, #dc2626); }
+  .cat-class .cat-icon { color: #f97316; }
+  .cat-class .keyword { color: #fdba74; }
+
+  .cat-object { border-color: rgba(236,72,153,0.15); }
+  .cat-object::before { background: linear-gradient(90deg, #ec4899, #9333ea); }
+  .cat-object .cat-icon { color: #ec4899; }
+  .cat-object .keyword { color: #f9a8d4; }
+
+  .cat-symbol { border-color: rgba(20,184,166,0.15); }
+  .cat-symbol::before { background: linear-gradient(90deg, #14b8a6, #0891b2); }
+  .cat-symbol .cat-icon { color: #14b8a6; }
+  .cat-symbol .keyword { color: #5eead4; }
+
+  .cat-literals { border-color: rgba(250,204,21,0.15); }
+  .cat-literals::before { background: linear-gradient(90deg, #facc15, #ca8a04); }
+  .cat-literals .cat-icon { color: #facc15; }
+  .cat-literals .keyword { color: #fef08a; }
+
+  .cat-unused { border-color: rgba(148,163,184,0.15); }
+  .cat-unused::before { background: linear-gradient(90deg, #94a3b8, #64748b); }
+  .cat-unused .cat-icon { color: #94a3b8; }
+  .cat-unused .keyword { color: #cbd5e1; }
+
+  .cat-obsolete { border-color: rgba(239,68,68,0.15); }
+  .cat-obsolete::before { background: linear-gradient(90deg, #ef4444, #991b1b); }
+  .cat-obsolete .cat-icon { color: #ef4444; }
+  .cat-obsolete .keyword { color: #fca5a5; }
+
+  .cat-icon {
+    font-size: 20px;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .cat-title {
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #64748b;
+    margin-bottom: 10px;
+  }
+
+  .keywords-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .keyword {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    font-weight: 600;
+    background: rgba(255,255,255,0.05);
+    border-radius: 5px;
+    padding: 3px 7px;
+  }
+
+  /* Second row – wider cards */
+  .grid-row2 {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+
+  /* Footer */
+  .footer {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .caption {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .caption-line {
+    width: 30px;
+    height: 2px;
+    background: linear-gradient(90deg, #6366f1, #14b8a6);
+    border-radius: 2px;
+  }
+
+  .tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .tag {
+    font-size: 11px;
+    font-weight: 500;
+    color: #475569;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 100px;
+    padding: 4px 12px;
+  }
+
+  .branding {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #334155;
+    margin-top: 12px;
+    text-align: right;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="grid-bg"></div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <div class="eyebrow">
+        <div class="eyebrow-dot"></div>
+        <span>Java Reference Sheet</span>
+      </div>
+      <h1>Every Java <span class="accent">Keyword</span><br>You Need to Know</h1>
+      <p class="subtitle">A complete categorized breakdown of all reserved keywords in Java — from data types to obsolete relics.</p>
+    </div>
+    <div class="badge-group">
+      <div class="count-pill">⚡ 60+ Keywords</div>
+      <div class="badge"><strong>Language:</strong> Java SE 21+</div>
+      <div class="badge"><strong>Level:</strong> All</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Row 1 -->
+  <div class="grid">
+    <div class="cat cat-data">
+      <span class="cat-icon">🔵</span>
+      <div class="cat-title">Data Types</div>
+      <div class="keywords-list">
+        <span class="keyword">byte</span>
+        <span class="keyword">short</span>
+        <span class="keyword">int</span>
+        <span class="keyword">long</span>
+        <span class="keyword">float</span>
+        <span class="keyword">double</span>
+        <span class="keyword">char</span>
+        <span class="keyword">boolean</span>
+        <span class="keyword">void</span>
+        <span class="keyword">var</span>
+        <span class="keyword">enum</span>
+      </div>
+    </div>
+
+    <div class="cat cat-control">
+      <span class="cat-icon">🔀</span>
+      <div class="cat-title">Control Flow</div>
+      <div class="keywords-list">
+        <span class="keyword">if</span>
+        <span class="keyword">else</span>
+        <span class="keyword">switch</span>
+        <span class="keyword">case</span>
+        <span class="keyword">default</span>
+        <span class="keyword">yield</span>
+        <span class="keyword">for</span>
+        <span class="keyword">while</span>
+        <span class="keyword">do</span>
+        <span class="keyword">break</span>
+        <span class="keyword">continue</span>
+        <span class="keyword">return</span>
+        <span class="keyword">when</span>
+      </div>
+    </div>
+
+    <div class="cat cat-modifier">
+      <span class="cat-icon">🛡️</span>
+      <div class="cat-title">Modifiers</div>
+      <div class="keywords-list">
+        <span class="keyword">public</span>
+        <span class="keyword">protected</span>
+        <span class="keyword">private</span>
+        <span class="keyword">static</span>
+        <span class="keyword">final</span>
+        <span class="keyword">abstract</span>
+        <span class="keyword">synchronized</span>
+        <span class="keyword">transient</span>
+        <span class="keyword">volatile</span>
+        <span class="keyword">native</span>
+      </div>
+    </div>
+
+    <div class="cat cat-exception">
+      <span class="cat-icon">⚠️</span>
+      <div class="cat-title">Exception Handling</div>
+      <div class="keywords-list">
+        <span class="keyword">try</span>
+        <span class="keyword">catch</span>
+        <span class="keyword">finally</span>
+        <span class="keyword">throw</span>
+        <span class="keyword">throws</span>
+        <span class="keyword">assert</span>
+      </div>
+    </div>
+
+    <div class="cat cat-class">
+      <span class="cat-icon">📦</span>
+      <div class="cat-title">Class Related</div>
+      <div class="keywords-list">
+        <span class="keyword">class</span>
+        <span class="keyword">interface</span>
+        <span class="keyword">extends</span>
+        <span class="keyword">implements</span>
+        <span class="keyword">package</span>
+        <span class="keyword">import</span>
+        <span class="keyword">exports</span>
+        <span class="keyword">module</span>
+        <span class="keyword">open</span>
+        <span class="keyword">opens</span>
+        <span class="keyword">provides</span>
+        <span class="keyword">requires</span>
+        <span class="keyword">uses</span>
+        <span class="keyword">with</span>
+        <span class="keyword">to</span>
+        <span class="keyword">transitive</span>
+        <span class="keyword">sealed</span>
+        <span class="keyword">non-sealed</span>
+        <span class="keyword">permits</span>
+        <span class="keyword">record</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2 -->
+  <div class="grid grid-row2">
+    <div class="cat cat-object">
+      <span class="cat-icon">🧬</span>
+      <div class="cat-title">Object Related</div>
+      <div class="keywords-list">
+        <span class="keyword">new</span>
+        <span class="keyword">instanceof</span>
+        <span class="keyword">super</span>
+        <span class="keyword">this</span>
+      </div>
+    </div>
+
+    <div class="cat cat-symbol">
+      <span class="cat-icon">🔣</span>
+      <div class="cat-title">Special Symbol</div>
+      <div class="keywords-list">
+        <span class="keyword">_ (underscore)</span>
+      </div>
+    </div>
+
+    <div class="cat cat-literals">
+      <span class="cat-icon">💡</span>
+      <div class="cat-title">Literals</div>
+      <div class="keywords-list">
+        <span class="keyword">true</span>
+        <span class="keyword">false</span>
+        <span class="keyword">null</span>
+      </div>
+    </div>
+
+    <div class="cat cat-unused">
+      <span class="cat-icon">🚫</span>
+      <div class="cat-title">Unused Keywords</div>
+      <div class="keywords-list">
+        <span class="keyword">goto</span>
+        <span class="keyword">const</span>
+      </div>
+    </div>
+
+    <div class="cat cat-obsolete">
+      <span class="cat-icon">🪦</span>
+      <div class="cat-title">Obsolete</div>
+      <div class="keywords-list">
+        <span class="keyword">strictfp</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="caption">
+      <div class="caption-line"></div>
+      Save this. Share it. Master Java. ☕
+    </div>
+    <div>
+      <div class="tags">
+        <span class="tag">#Java</span>
+        <span class="tag">#Programming</span>
+        <span class="tag">#Developer</span>
+        <span class="tag">#100DaysOfCode</span>
+        <span class="tag">#SoftwareEngineering</span>
+      </div>
+      <div class="branding">Java SE 21 · All Reserved Keywords</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
